@@ -11,3 +11,7 @@
 | Week 5 | Authentication and Authorization | [Week 5](w5.md) |
 | Week 6 | Reminder APIs and Notification Logic | [Week 6](w6.md) |
 | Week 7 | Backend Prototype Support and Admin APIs | [Week 7](w7.md) |
+| Week 8 | User Profile and Saved Exams API | [Week 8] (w8.md) |
+| Week 9 | Backend Validation and API Improvements | [Week 9] (w9.md) |
+| Week 10 | Backend Testing and Frontend Integration | [Week 10] (w10.md) |
+| Week 11 | Final Backend Improvements and Deployment Preparation | [Week 11] (w11.md) |
