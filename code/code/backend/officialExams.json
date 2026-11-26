@@ -1,0 +1,363 @@
+[
+  {
+    "catalogKey": "cse",
+    "title": "UPSC Civil Services 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Civil Services",
+    "lastDate": "2027-02-02",
+    "examDate": "2027-05-23",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Preliminary examination"
+  },
+  {
+    "catalogKey": "cgl",
+    "title": "SSC CGL 2026",
+    "organization": "Staff Selection Commission",
+    "category": "SSC",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Combined Graduate Level Examination"
+  },
+  {
+    "catalogKey": "ibps-po",
+    "title": "IBPS PO / MT XVI",
+    "organization": "Institute of Banking Personnel Selection",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+    "description": "Probationary Officers and Management Trainees"
+  },
+  {
+    "catalogKey": "ntpc-gr",
+    "title": "RRB NTPC Graduate",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Non-Technical Popular Categories · CEN 06/2025"
+  },
+  {
+    "catalogKey": "nda-i",
+    "title": "UPSC NDA & NA (I) 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Defence",
+    "lastDate": "2026-12-22",
+    "examDate": "2027-04-11",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "National Defence Academy and Naval Academy"
+  },
+  {
+    "catalogKey": "sbi-ja",
+    "title": "SBI Junior Associates 2026",
+    "organization": "State Bank of India",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": "2026-11-26",
+    "examEndDate": "2026-11-27",
+    "applicationLink": "https://sbi.bank.in/en/web/careers/current-openings",
+    "description": "Main examination"
+  },
+  {
+    "catalogKey": "cds-i",
+    "title": "UPSC CDS (I) 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Defence",
+    "lastDate": "2026-12-22",
+    "examDate": "2027-04-11",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Combined Defence Services"
+  },
+  {
+    "catalogKey": "ifs",
+    "title": "UPSC Indian Forest Service 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Civil Services",
+    "lastDate": "2027-02-02",
+    "examDate": "2027-05-23",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Preliminary examination through Civil Services Prelims"
+  },
+  {
+    "catalogKey": "ese",
+    "title": "UPSC Engineering Services 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Technical",
+    "lastDate": "2026-10-06",
+    "examDate": "2027-01-31",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Preliminary examination"
+  },
+  {
+    "catalogKey": "geo",
+    "title": "UPSC Combined Geo-Scientist 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Technical",
+    "lastDate": "2026-09-22",
+    "examDate": "2027-01-10",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Preliminary examination"
+  },
+  {
+    "catalogKey": "capf",
+    "title": "UPSC CAPF Assistant Commandants 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Defence",
+    "lastDate": "2027-03-09",
+    "examDate": "2027-07-04",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Central Armed Police Forces"
+  },
+  {
+    "catalogKey": "cms",
+    "title": "UPSC Combined Medical Services 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Healthcare",
+    "lastDate": "2027-03-23",
+    "examDate": "2027-07-18",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Combined Medical Services Examination"
+  },
+  {
+    "catalogKey": "ies",
+    "title": "UPSC IES / ISS 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Civil Services",
+    "lastDate": "2027-03-02",
+    "examDate": "2027-06-18",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Indian Economic Service and Indian Statistical Service"
+  },
+  {
+    "catalogKey": "nda-ii",
+    "title": "UPSC NDA & NA (II) 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Defence",
+    "lastDate": "2027-06-01",
+    "examDate": "2027-09-19",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "National Defence Academy and Naval Academy"
+  },
+  {
+    "catalogKey": "cds-ii",
+    "title": "UPSC CDS (II) 2027",
+    "organization": "Union Public Service Commission",
+    "category": "Defence",
+    "lastDate": "2027-06-01",
+    "examDate": "2027-09-19",
+    "applicationLink": "https://www.upsc.gov.in/uploads/2026/06/Calendar-Year-2027-Engl-200526.pdf",
+    "description": "Combined Defence Services"
+  },
+  {
+    "catalogKey": "chsl",
+    "title": "SSC CHSL 2026",
+    "organization": "Staff Selection Commission",
+    "category": "SSC",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Combined Higher Secondary Level Examination"
+  },
+  {
+    "catalogKey": "je",
+    "title": "SSC Junior Engineer 2026",
+    "organization": "Staff Selection Commission",
+    "category": "Technical",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Civil, Mechanical and Electrical branches"
+  },
+  {
+    "catalogKey": "mts",
+    "title": "SSC MTS & Havaldar 2026",
+    "organization": "Staff Selection Commission",
+    "category": "SSC",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Multi-Tasking Staff and Havaldar recruitment"
+  },
+  {
+    "catalogKey": "cpo",
+    "title": "SSC CPO Sub-Inspector 2026",
+    "organization": "Staff Selection Commission",
+    "category": "Police",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Sub-Inspector in Delhi Police and Central Armed Police Forces"
+  },
+  {
+    "catalogKey": "gd",
+    "title": "SSC Constable GD 2027",
+    "organization": "Staff Selection Commission",
+    "category": "Police",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Constable and Rifleman recruitment"
+  },
+  {
+    "catalogKey": "steno",
+    "title": "SSC Stenographer 2026",
+    "organization": "Staff Selection Commission",
+    "category": "SSC",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Grades C and D"
+  },
+  {
+    "catalogKey": "translator",
+    "title": "SSC Combined Hindi Translators 2026",
+    "organization": "Staff Selection Commission",
+    "category": "SSC",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Combined Hindi Translators Examination"
+  },
+  {
+    "catalogKey": "selection",
+    "title": "SSC Selection Post Phase XIV",
+    "organization": "Staff Selection Commission",
+    "category": "SSC",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://ssc.gov.in/for-candidates/examination-calendar",
+    "description": "Selection Post Examination 2026"
+  },
+  {
+    "catalogKey": "ibps-csa",
+    "title": "IBPS Customer Service Associates XVI",
+    "organization": "Institute of Banking Personnel Selection",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": "2026-12-27",
+    "applicationLink": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+    "description": "Main examination"
+  },
+  {
+    "catalogKey": "ibps-so",
+    "title": "IBPS Specialist Officers XVI",
+    "organization": "Institute of Banking Personnel Selection",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+    "description": "Common Recruitment Process for Specialist Officers"
+  },
+  {
+    "catalogKey": "ibps-scale1",
+    "title": "IBPS RRB Officer Scale I XV",
+    "organization": "Institute of Banking Personnel Selection",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": "2026-12-20",
+    "applicationLink": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+    "description": "Main examination"
+  },
+  {
+    "catalogKey": "ibps-scale23",
+    "title": "IBPS RRB Officer Scales II & III XV",
+    "organization": "Institute of Banking Personnel Selection",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": "2026-12-20",
+    "applicationLink": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+    "description": "Single examination"
+  },
+  {
+    "catalogKey": "ibps-oa",
+    "title": "IBPS RRB Office Assistants XV",
+    "organization": "Institute of Banking Personnel Selection",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": "2027-01-30",
+    "applicationLink": "https://www.ibps.in/wp-content/uploads/IBPS_CALENDAR_2026-27_final.pdf",
+    "description": "Main examination"
+  },
+  {
+    "catalogKey": "ntpc-ug",
+    "title": "RRB NTPC Undergraduate",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Non-Technical Popular Categories · CEN 07/2025"
+  },
+  {
+    "catalogKey": "alp",
+    "title": "RRB Assistant Loco Pilot",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Assistant Loco Pilot · CEN 01/2026"
+  },
+  {
+    "catalogKey": "rail-section",
+    "title": "RRB Section Controller",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Section Controller · CEN 04/2025"
+  },
+  {
+    "catalogKey": "rail-health",
+    "title": "RRB Paramedical",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Paramedical categories · CEN 03/2025"
+  },
+  {
+    "catalogKey": "rail-level1",
+    "title": "RRB Group D / Level 1",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Pay Level 1 · CEN 09/2025"
+  },
+  {
+    "catalogKey": "rail-min",
+    "title": "RRB Ministerial & Isolated Categories",
+    "organization": "Railway Recruitment Boards",
+    "category": "Railway",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://www.rrbcdg.gov.in/employment-notices.php",
+    "description": "Ministerial and Isolated Category posts · CEN 07/2024"
+  },
+  {
+    "catalogKey": "sbi-po",
+    "title": "SBI Probationary Officers 2026",
+    "organization": "State Bank of India",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://sbi.bank.in/documents/77530/57941334/18062026_1_Detailed_Adv.2026.pdf/1f1a9532-8a2f-6e59-08a0-616d62a497b1",
+    "description": "Probationary Officer recruitment · 2026–27"
+  },
+  {
+    "catalogKey": "sbi-sco",
+    "title": "SBI Specialist Cadre Officers",
+    "organization": "State Bank of India",
+    "category": "Banking",
+    "lastDate": null,
+    "examDate": null,
+    "applicationLink": "https://sbi.bank.in/en/web/careers/current-openings",
+    "description": "Specialist Cadre Officer recruitment"
+  }
+]
