@@ -1,0 +1,461 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[a4paper,left=25mm,right=25mm,top=22mm,bottom=22mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage{graphicx,booktabs,tabularx,array,float,caption,enumitem,listings}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptername\ \thechapter}{12pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{12pt}{20pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.12}
+\captionsetup{font=small,skip=5pt}
+\setlist[itemize]{leftmargin=*,nosep}
+\setcounter{tocdepth}{2}
+\begin{document}
+\begin{titlepage}
+\centering
+{\Large UCS503 Software Engineering\par}
+\vspace{0.5cm}
+{\LARGE\bfseries Final Evaluation Report\par}
+\vspace{1.6cm}
+{\Huge\bfseries Government Exam Notification and Deadline Alert System\par}
+\vspace{0.4cm}
+{\Large GovExam Alert\par}
+\vspace{1.3cm}
+{\large\bfseries Submitted by\par}
+\vspace{0.35cm}
+1024030731 Aryan Juneja\\
+1024030747 Raghav Mittal\\
+1024031150 Bir Angad\par
+\vspace{0.4cm}
+Group 3C53\\
+BE Third Year, COE\par
+\vspace{1.3cm}
+{\large\bfseries Submitted to\par}
+\vspace{0.3cm}
+Paramveer Kaur\par
+\vfill
+Computer Science and Engineering Department\par
+Thapar Institute of Engineering and Technology, Patiala
+\end{titlepage}
+\pagenumbering{roman}
+\chapter*{Abstract}
+
+GovExam Alert is a web portal for finding Indian government examination listings, saving relevant examinations, and tracking application deadlines. The final submission brings a 36-entry reference catalog into SQLite and uses the same database for public browsing and administrative maintenance. Aspirants can browse and filter the catalog, open source links, and sign in to save examinations. The portal displays an in-app alert for a saved examination from three days before its listed closing date through the closing date, subject to the user's alert preference.
+
+
+The final evaluation builds the React application and exercises the Express API against a disposable SQLite database. The backend smoke suite recorded 31 successful request checks, including creation, update, deletion and persistence after restarting the server. Chromium checks confirmed catalog browsing, account bookmarks, in-app alerts and the administrator workflow. Applications are handled by the recruiting organisations, and the portal directs users to their sources for current dates and eligibility.
+
+
+\clearpage{\small\setlength{\parskip}{0pt}\tableofcontents}\clearpage\pagenumbering{arabic}
+
+\chapter{Introduction}
+
+\section{Background and Problem Statement}
+
+Government recruiting organisations publish examination schedules, application deadlines and eligibility criteria through separate portals. Aspirants following multiple examinations must find relevant notices, compare dates and revisit the sources when details change. A missed application closing date can prevent a candidate from applying even when they meet the eligibility criteria.
+
+
+GovExam Alert addresses this problem with a searchable catalog and a personal shortlist. An aspirant can find examinations by keyword or category, inspect dates and related details, and follow the associated source link. Administrators maintain the shared catalog so that changes appear in the data served to the public interface.
+
+
+\section{Project Objectives}
+
+\begin{itemize}
+\item Provide a searchable catalog with category and listing-type filters, sorting, exam details and source links.
+\item Use a shared SQLite catalog for browsing and administrative maintenance, with records that persist when the server restarts.
+\item Support registration, sign-in, profile updates and account-specific saved examinations.
+\item Show in-app deadline alerts for saved examinations closing within three days, including the closing date, when alerts are enabled.
+\item Evaluate the public and administrative workflows through repeatable API and interface checks.
+\end{itemize}
+
+\clearpage
+
+\section{Scope and User Roles}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.270\textwidth}>{\raggedright\arraybackslash}p{0.630\textwidth}}
+\toprule
+\textbf{Actor} & \textbf{Supported activities} \\ \midrule
+Visitor & Browse, search, filter and sort listings, read examination details, and open the stored source link. \\
+Signed-in aspirant & Save or remove examinations, review saved listings and deadline alerts, and update profile preferences. \\
+Administrator & Search the catalogue in the management panel and create, update or delete SQLite examination records. \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{0}
+\caption{User roles and supported activities}
+\end{table}
+
+The project runs as a browser-based application. Its Android and iOS routes provide two interface variants. Recruitment bodies handle applications and publish official notices. The project's catalog is maintained in SQLite and links to recruiting sources.
+
+
+\chapter{Methodology and Design}
+
+\section{System Architecture and Technical Stack}
+
+The browser calls relative /api URLs. In the supplied development and preview setup, Vite forwards these requests to Express on loopback port 5000. The API reads and writes SQLite, returns JSON to the client and checks the caller's role for administrative changes. Both examination workspaces share the same data and account components.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.990\textwidth]{figure-01.png}
+
+\caption{Actors and client--server architecture}
+\end{figure}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.180\textwidth}>{\raggedright\arraybackslash}p{0.252\textwidth}>{\raggedright\arraybackslash}p{0.468\textwidth}}
+\toprule
+\textbf{Layer} & \textbf{Technology} & \textbf{Responsibility} \\ \midrule
+User interface & React, TypeScript, React Router & Renders exam cards, filter controls, details, profile and admin views. \\
+Build and local proxy & Vite and Tailwind CSS & Builds the client assets and proxies API requests during local development and preview. \\
+API & Node.js and Express & Serves catalog, authentication, profile, reminder and admin endpoints. \\
+Persistence & SQLite via node:sqlite & Stores exams, users, sessions and saved exam relationships. \\
+Verification & Node smoke suite and Chromium & Checks HTTP responses, restart persistence and browser workflows. \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{0}
+\caption{Technical stack}
+\end{table}
+
+\clearpage
+
+\subsection{Listing and Administration Flows}
+
+On opening a workspace, the browser requests the exam list and renders it from the returned data. The UI applies filters and ordering to that list. An administrator signs in, opens the management panel and submits a change. The API validates the input and role before writing to SQLite. The management panel reloads the catalog after a successful write.
+
+
+\section{Module Implementation and Data Model}
+
+\subsection{Exam Catalog and Search}
+
+A one-time migration inserts 36 catalog entries with source links and records a migration marker in the same transaction. An upgraded database can contain the two original sample rows. The public and administrative interfaces filter out those legacy rows. Catalog entries and admin-added records use the same SQLite table. The workspace shows a category label on each exam card and offers a listing-type filter.
+
+
+\subsection{Exam Administration and Validation}
+
+The admin panel loads catalog records through GET /api/exams and uses POST, PUT and DELETE under /api/admin/exams. The API checks the administrator role and validates fields such as required names, dates, link format and vacancy counts where supplied. The one-time migration preserves catalog edits and deletions on later starts.
+
+
+\subsection{Accounts and In-App Deadline Alerts}
+
+The backend stores salted scrypt password hashes and expiring session token hashes. A signed-in user can update their display name and alert preference and can bookmark an exam. Each reminder row links a user to an exam. Its compound key prevents duplicate bookmarks. Removing a saved item deletes the link, and deleting an exam removes its associated reminders.
+
+
+The interface compares each saved exam's closing date with the current calendar date in Asia/Kolkata. When alerts are enabled, the Dashboard and Reminders views flag saved exams that close within three days, including those due that day.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.943\textwidth]{figure-02.png}
+
+\caption{Core SQLite entities and relationships}
+\end{figure}
+
+The exams table includes the exam ID, title, organisation, category, application deadline, exam date or date range, source URL, description, eligibility and vacancy fields. The migration table records which catalog import has run. Sessions belong to one user, while reminders connect many users and exams.
+
+
+\clearpage
+
+\section{Software Engineering Models}
+
+\subsection{Use-Case Diagram and Summaries}
+
+Visitors can browse the catalog without an account. Signed-in aspirants can save exams and see deadline alerts. The administrator maintains exam records through the management panel.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.987\textwidth]{figure-03.png}
+
+\caption{Use cases for aspirants and administrators}
+\end{figure}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.099\textwidth}>{\raggedright\arraybackslash}p{0.261\textwidth}>{\raggedright\arraybackslash}p{0.540\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Actor and goal} & \textbf{Main flow and result} \\ \midrule
+UC-01 & Aspirant browses and searches & Open a workspace, apply criteria and review matching records. With no matches, the workspace shows an empty state. \\
+UC-02 & Aspirant checks details & Select an exam to see its dates and details. Open the recruiting source link when available. \\
+UC-03 & Aspirant manages an account & Register or sign in, then update the display name or alert preference in Settings. \\
+UC-04 & Aspirant tracks a deadline & Sign in, bookmark an exam and open Reminders. The app displays an alert when the preference and closing date qualify. \\
+UC-05 & Administrator maintains the catalog & Sign in as administrator, add or edit an exam, or confirm a deletion. The panel reloads the records after a successful change. \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{3}
+\caption{Use-case summaries}
+\end{table}
+
+\clearpage
+
+\subsection{Activity Diagram}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.942\textwidth]{figure-04.png}
+
+\caption{Browsing, filtering and viewing an examination}
+\end{figure}
+
+\subsection{Swimlane Diagram}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.976\textwidth]{figure-05.png}
+
+\caption{Saving an exam and evaluating its deadline alert}
+\end{figure}
+
+For a signed-in aspirant, Express writes the bookmark to SQLite. React then evaluates the saved exam's closing date and the user's alert preference. The same checks run when saved items load.
+
+
+\clearpage
+
+\subsection{Data Flow Diagrams}
+
+Level 0 shows what information crosses the portal boundary. Level 1 separates catalog browsing, account management, saved exams and catalog administration.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.987\textwidth]{figure-06.png}
+
+\caption{Level 0 context diagram}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.987\textwidth]{figure-07.png}
+
+\caption{Level 1 processes and data stores}
+\end{figure}
+
+\clearpage
+
+\subsection{Admin Data Flow and Listing Sequence}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.987\textwidth]{figure-08.png}
+
+\caption{Level 2 decomposition of process 4.0, Manage catalog}
+\end{figure}
+
+Admin requests pass through session and role checks. For edit or delete, the API returns an error if the exam does not exist.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.987\textwidth]{figure-09.png}
+
+\caption{Sequence for loading the catalog and opening exam details}
+\end{figure}
+
+The workspace opens the detail panel using the exam record it has already loaded.
+
+
+\clearpage
+
+\subsection{SQLite Schema and SQL Query}
+
+SQLite stores accounts, sessions, exam records and the bookmarks that connect users to exams. The migration table tracks the catalog import and has no foreign-key relationships.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.990\textwidth]{figure-10.png}
+
+\caption{SQLite schema with keys and relationship cardinalities}
+\end{figure}
+
+The reminders table uses (user\_id, exam\_id) as its composite primary key, so a user can save each exam once. Its foreign keys remove associated reminder rows when a user or exam is deleted. The sessions table references the user in the same way.
+
+
+Example query for retrieving the saved exams that belong to one user. The application can bind the authenticated user ID to the placeholder.
+
+
+\begin{verbatim}
+SELECT e.id, e.title, e.lastDate
+FROM reminders AS r
+JOIN exams AS e ON e.id = r.exam_id
+WHERE r.user_id = ?
+ORDER BY e.lastDate;
+\end{verbatim}
+
+\begin{center}\small Listing 2.1 Parameterized SQLite query for a user's saved exams\end{center}
+
+\clearpage
+
+\section{Software Requirements and Traceability}
+
+Each requirement is paired with an API check or browser test.
+
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.108\textwidth}>{\raggedright\arraybackslash}p{0.441\textwidth}>{\raggedright\arraybackslash}p{0.351\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement and acceptance criterion} & \textbf{Verification} \\ \midrule
+FR-01 & Load the exam catalog from SQLite. Display 36 browsable catalog entries on the baseline interface. & Smoke suite on fresh database and browser baseline. \\
+FR-02 & Search by keyword, filter by category, inspect details and expose the saved source URL. A search with no matches shows an empty state. & Category API request and browser catalog checks. \\
+FR-03 & Register and sign in. Store the user's profile and alert preference. & Account and profile requests, with a restart in the smoke suite. \\
+FR-04 & Save and remove exams for the authenticated account. Saving twice results in one saved item. & Reminder requests, duplicate-save assertion and restart. \\
+FR-05 & Display an in-app alert for a saved exam in the closing window when alerts are enabled. & Browser workflow with a deadline one day away and preference toggle. \\
+FR-06 & Let administrators add, edit and delete records. Reject unauthenticated and non-admin writes. & Admin API and browser workflows. \\
+FR-07 & Preserve catalog edits and deletions after restart. & Edit and delete baseline records, restart, then retrieve the catalog. \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{4}
+\caption{Functional requirements and verification}
+\end{table}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.108\textwidth}>{\raggedright\arraybackslash}p{0.198\textwidth}>{\raggedright\arraybackslash}p{0.594\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Quality requirement} & \textbf{Implementation or evaluation scope} \\ \midrule
+NFR-01 & Usability & Readable cards and details, search and filter controls, and feedback for empty results and API errors. \\
+NFR-02 & Data integrity & SQLite constraints and record validation. The catalog migration is transactional. \\
+NFR-03 & Access control & Backend authorization on admin routes. Local evaluation covers rejected writes and invalid inputs. \\
+NFR-04 & Maintainability & Separate React views, REST endpoints and SQLite persistence. \\
+NFR-05 & Source accuracy & Stored source links are visible. The recruiting organisation supplies the current notice. \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{5}
+\caption{Non-functional requirements}
+\end{table}
+
+\clearpage
+
+\section{User Stories and Acceptance Criteria}
+
+The stories connect each user goal to its acceptance criteria and the functional requirements in Section 2.4.
+
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.099\textwidth}>{\raggedright\arraybackslash}p{0.261\textwidth}>{\raggedright\arraybackslash}p{0.387\textwidth}>{\raggedright\arraybackslash}p{0.153\textwidth}}
+\toprule
+\textbf{Story} & \textbf{User goal} & \textbf{Acceptance criteria} & \textbf{Req. ID} \\ \midrule
+US-01 & As an aspirant, I want to find relevant exams. & The catalog opens, category and keyword filters narrow the results, and the page handles an empty result. & FR-01, FR-02 \\
+US-02 & As an aspirant, I want to check an exam before applying. & The details view displays the recorded dates and any available recruiting source link. & FR-02 \\
+US-03 & As an aspirant, I want to manage my own shortlist. & After signing in I can save or remove a listing. A saved listing is still present after reload and saving it twice creates one bookmark. & FR-03, FR-04 \\
+US-04 & As an aspirant, I want to see approaching deadlines. & A saved exam due within three days shows an alert when enabled. Turning alerts off leaves the saved exam in the list. & FR-05 \\
+US-05 & As an administrator, I want to maintain the exam catalog. & I can add, edit and delete records. Changes survive restart, and the API rejects catalog writes from ordinary users. & FR-06, FR-07 \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{6}
+\caption{User stories and their acceptance criteria}
+\end{table}
+
+\chapter{Results and Evaluation}
+
+\section{Testing Methodology}
+
+Local testing used Node.js 24.22.3, a temporary SQLite database and a backend restart to check persistence. After building the frontend with Vite, the browser tests used headless Chromium to run the portal through Vite preview at desktop and mobile screen sizes. The tests used dedicated accounts and a temporary exam.
+
+
+\section{Observed Results}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.225\textwidth}>{\raggedright\arraybackslash}p{0.576\textwidth}>{\raggedright\arraybackslash}p{0.099\textwidth}}
+\toprule
+\textbf{Check} & \textbf{Observed result} & \textbf{Status} \\ \midrule
+Backend smoke suite & 31 successful request checks and accompanying data assertions. & Passed \\
+Catalog and category API & Fresh database returned 36 catalog entries. SSC filtering returned multiple SSC records. An unknown exam ID returned HTTP 404. & Passed \\
+Admin access and data checks & Missing login returned 401, a normal user returned 403, and invalid input returned 400. Valid create, update and delete returned 201, 200 and 200. & Passed \\
+Restart persistence & Updated catalog data and deleted-record absence persisted. Saved exam IDs and the updated profile also persisted. & Passed \\
+Frontend production build & Vite 6.3.5 produced the HTML, CSS and JavaScript bundles. & Passed \\
+Browser workflows & Catalog and detail views, desktop admin CRUD, account bookmarks across reload, deadline alert and preference, and iOS mobile layout. & Passed \\
+\bottomrule
+\end{tabular}
+\setcounter{table}{0}
+\caption{Final evaluation results}
+\end{table}
+
+\clearpage
+
+\subsection{Interpretation}
+
+A local GET /api/exams benchmark returned and decoded 36 entries per request. After five warm-up requests, 40 sequential loopback requests averaged 1.66 ms with a 1.54 ms median. This measurement includes response decoding and applies to the local test setup.
+
+
+The tests confirm that a valid admin deletion succeeds and that catalog data survives a restart. The 36-entry baseline also establishes that the final catalog extends beyond the two legacy sample entries. The browser walkthrough showed the near-deadline warning and confirmed that disabling alerts left the saved exam available. Performance under concurrent traffic and compatibility across multiple browser engines remain outside this evaluation.
+
+
+\section{Interface Evidence}
+
+The dashboard and the administration panel read from the shared SQLite catalog. The dashboard initially shows 12 of 36 listings, and the admin view displays database entries with edit and delete controls.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.943\textwidth]{figure-11.png}
+
+\caption{Aspirant dashboard with catalog, filters and exam cards}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.943\textwidth]{figure-12.png}
+
+\caption{Examination management panel with catalog records and admin actions}
+\end{figure}
+
+\subsection{Demonstration Workflow}
+
+Open a workspace, find an exam, and inspect its details and source link. Sign in to bookmark a listing and open Saved Exams or Reminders. Use an administrator account to create, edit and delete a temporary listing through the management panel.
+
+
+\chapter{Conclusion}
+
+\section{Summary and Key Findings}
+
+The final GovExam Alert submission provides a central searchable catalog, persistent account-specific bookmarks, in-app deadline tracking and administrator maintenance. The SQLite catalog supports a common data path for the public and admin views. An exam becomes part of the same catalog once an administrator creates it.
+
+
+The final API and build checks confirmed that the portal could retrieve the seeded catalog, restrict administrative writes, save account data and keep catalog changes across restarts. The migration marker prevents deleted catalog entries from reappearing after a restart. Signed-in users can see which saved exams are closing soon.
+
+
+\section{Limitations and Future Work}
+
+\begin{itemize}
+\item Extend deadline delivery with a scheduler and a consent-based email or push channel if users need alerts while the portal is closed.
+\item Track the last verification date for each source and review listings when recruiting organisations revise schedules or eligibility.
+\item Measure response times under representative workloads and expand device and browser coverage before a wider deployment.
+\end{itemize}
+
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+[1] GovExam Alert team. GovExam-Alert-Full-Project-SQLite(2).zip. Final implementation archive, README, catalog data and smoke test source.
+
+
+[2] Thapar Institute of Engineering and Technology. TIET Report Template. UCS503 evaluation report structure.
+
+
+[3] GovExam Alert team. UCS503 prototype-stage report.
+
+
+[4] React documentation. https://react.dev/
+
+
+[5] Vite documentation. https://vite.dev/
+
+
+[6] Express documentation. https://expressjs.com/
+
+
+[7] SQLite documentation. https://www.sqlite.org/docs.html
+
+
+\end{document}
